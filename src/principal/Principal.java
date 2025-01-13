@@ -1,5 +1,8 @@
 package principal;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -115,6 +118,17 @@ public class Principal {
 				Double total = restaurante.valorTotal();
 				System.out.println("total dos pedidos ate o momento: " + total);
 				System.out.println("prato mais vendido:" + restaurante.gerarRelatorioMaisPedidos());
+				 
+				String caminhoArquivo = "lista.txt";
+				 try (BufferedWriter writer = new BufferedWriter(new FileWriter(caminhoArquivo))) {
+			            for (Pedido p : restaurante.getListaDepedidos()) {
+			                writer.write(p.toString()); 
+			                writer.newLine();   
+			            }
+			            System.out.println("Arquivo gerado com sucesso: " + caminhoArquivo);
+			        } catch (IOException e) {
+			            System.err.println("Erro ao escrever no arquivo: " + e.getMessage());
+			        }
 				break;
 			case 6:
 				System.out.println("saindo...");
